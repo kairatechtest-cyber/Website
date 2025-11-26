@@ -2,6 +2,9 @@
   "name": "webpage",
   "version": "1.0.0",
   "main": "api/server.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "node api/server.js"
   },
