@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kaira Technologies | Dashboard & Reports</title>
+
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- FONT AWESOME -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  background: #f1f4f9;
+  overflow-x: hidden;
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #1b2430;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 25px 0;
+  overflow-y: auto;
+  transition: 0.3s ease-in-out;
+}
+
+.sidebar-logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0 25px;
+  margin-bottom: 25px;
+  color: #fff;
+}
+
+.sidebar-section {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 10px 25px;
+  color: #9aa4b2;
+}
+
+.menu-item {
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #dce3eb;
+  transition: 0.2s;
+}
+
+.menu-item:hover {
+  background: #2d3647;
+  color: #fff;
+}
+
+.menu-item .arrow { margin-left: auto; transition: 0.3s; }
+.rotate { transform: rotate(90deg); }
+
+.dropdown {
+  display: none;
+  padding-left: 55px;
+  background: #222b38;
+}
+
+.dropdown a {
+  display: block;
+  padding: 8px 0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+.dropdown a:hover { color: #4fd1ff; }
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+.main-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  min-height: 100vh;
+  background: url("https://i.pinimg.com/1200x/e7/81/06/e78106881aa09dad26de203313739d3c.jpg")
+              no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+.main-content::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 260px;
+  width: calc(100% - 260px);
+  height: 100%;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+header {
+  background: rgba(255,255,255,0.9);
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(5px);
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.header-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1c2d4a;
+  text-align: center;
+  flex: 1;
+}
+
+.header-right {
+  text-align: right;
+  min-width: 180px;
+}
+
+#greetingText { font-weight: 600; color: #1c2d4a; }
+#timeText { color: #567089; font-size: 0.9rem; }
+
+/* =====================================================
+   WEATHER WIDGET
+===================================================== */
+.weather-widget-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.weather-iframe {
+  width: 250px;
+  height: 120px;
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s ease-in-out;
+  background: transparent;
+}
+
+.weather-iframe.expanded {
+  width: 420px;
+  height: 680px;
+  border-radius: 24px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+  transform: translateY(-50px);
+  animation: fadeIn 0.5s ease;
+}
+
+/* =====================================================
+   CONTENT AREA
+===================================================== */
+#contentArea {
+  padding: 30px;
+  min-height: 80vh;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+  .sidebar { width: 100%; height: auto; }
+  .main-content { margin-left: 0; width: 100%; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+  <div class="sidebar-logo">Industry</div>
+  <div class="sidebar-section">Navigation</div>
+
+  <!-- WATER -->
+  <div class="menu-item" onclick="toggleMenu('waterMenu')">
+    <i class="fa-solid fa-droplet"></i> Water
+    <i class="fa-solid fa-chevron-right arrow"></i>
+  </div>
+  <div id="waterMenu" class="dropdown">
+    <a href="https://kairatechtest.grafana.net/public-dashboards/24e17fcff04643189b289417a62616de" target="_blank">⚪ ETP Dashboard</a>
+    <a href="https://lookerstudio.google.com/embed/reporting/2f5766e2-8927-4a3a-b95b-94ac2ecf3c35/page/TlJ0C" target="_blank">⚪ Water Reports</a>
+  </div>
+
+  <!-- TYRE -->
+  <div class="menu-item" onclick="toggleMenu('tyreMenu')">
+    <i class="fa-solid fa-industry"></i> Tyre
+    <i class="fa-solid fa-chevron-right arrow"></i>
+  </div>
+
+  <div id="tyreMenu" class="dropdown">
+
+    <!-- MIXER -->
+    <div class="menu-item" style="padding-left:0;" onclick="toggleMenu('mixerMenu')">
+      <i class="fa-solid fa-list"></i> Mixer
+      <i class="fa-solid fa-chevron-right arrow"></i>
+    </div>
+    <div id="mixerMenu" class="dropdown">
+      <a href="https://kairatechtest.grafana.net/public-dashboards/7ef1f69170b242388cc89a1a99a3dfbf" target="_blank">⚪ Dashboard</a>
+      <a href="https://lookerstudio.google.com/embed/reporting/6841dd57-6880-4c72-96be-2160e1cd3bf8/page/TlJ0C" target="_blank">⚪ Reports</a>
+    </div>
+
+    <!-- TBM -->
+    <div class="menu-item" style="padding-left:0;" onclick="toggleMenu('tbmMenu')">
+      <i class="fa-solid fa-list"></i> TBM
+      <i class="fa-solid fa-chevron-right arrow"></i>
+    </div>
+    <div id="tbmMenu" class="dropdown">
+      <a href="https://kairatechtest.grafana.net/public-dashboards/d01b24c423114dbab739cca95faf266b" target="_blank">⚪ Dashboard</a>
+      <a href="https://kairatechtest.grafana.net/public-dashboards/a802d6af5cd043149abfba1726c17fcb" target="_blank">⚪ Analysis Dashboard</a>
+      <a href="#">⚪ TBM Reports</a>
+    </div>
+  </div>
+
+  <!-- WHATSAPP -->
+  <div class="menu-item" onclick="toggleMenu('whatsappMenu')">
+    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    <i class="fa-solid fa-chevron-right arrow"></i>
+  </div>
+  <div id="whatsappMenu" class="dropdown">
+    <a href="#" onclick="loadWhatsApp()">WhatsApp API</a>
+  </div>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <header>
+    <img src="https://kaira-technologies.com/wp-content/uploads/2023/01/logo-2.png" height="45">
+    <div class="header-title">KAIRA Technologies – Real-Time Dashboard & Reports</div>
+    <div class="header-right">
+      <div id="greetingText"></div>
+      <div id="timeText"></div>
+      <a href="https://kaira-technologies.com/" target="_blank">
+        <i class="fa-solid fa-globe"></i> Visit Website
+      </a>
+    </div>
+  </header>
+
+  <!-- Dynamic Content -->
+  <div id="contentArea"></div>
+
+  <!-- Weather Widget -->
+  <div class="weather-widget-container">
+    <iframe src="weather-widget.html" class="weather-iframe"></iframe>
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+function toggleMenu(id) {
+  const section = document.getElementById(id);
+  const arrow = section.previousElementSibling.querySelector(".arrow");
+  section.style.display = section.style.display === "block" ? "none" : "block";
+  arrow.classList.toggle("rotate");
+}
+
+function updateGreeting() {
+  const now = new Date();
+  let hr = now.getHours();
+  let greet = hr < 12 ? "Good Morning ☀️" : hr < 18 ? "Good Afternoon 🌤️" : "Good Evening 🌙";
+
+  document.getElementById("greetingText").textContent = greet;
+  document.getElementById("timeText").textContent = now.toLocaleTimeString();
+}
+
+setInterval(updateGreeting, 1000);
+updateGreeting();
+
+/* =======================================================
+   LOAD WHATSAPP API INSIDE PAGE
+======================================================= */
+function loadWhatsApp() {
+  const html = `
+  <div class="wa-card">
+    <h1>KAIRA</h1>
+    <h2>Technologies</h2>
+    <div style="margin-top: 5px; color:#0b4b46; font-weight:600;">WhatsApp Messenger</div>
+
+    <label>Mobile Number</label>
+    <input id="mobile" placeholder="e.g., 919876543210" />
+    <div class="hint">Include country code (e.g., 91 for India).</div>
+
+    <button onclick="sendMessage()">Send Message</button>
+
+    <div id="response"></div>
+
+    <div class="footer">Secure Communication Gateway</div>
+  </div>
+  `;
+
+  document.getElementById("contentArea").innerHTML = html;
+  applyWhatsAppStyles();
+}
+
+function applyWhatsAppStyles() {
+  const style = document.createElement("style");
+  style.textContent = `
+    .wa-card {
+      background: #ffffff;
+      width: 380px;
+      margin: 40px auto;
+      padding: 40px 35px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .wa-card h1 { font-size: 28px; font-weight: 700; color: #0b4b46; margin: 0; }
+    .wa-card h2 { font-size: 18px; font-weight: 600; margin-top: 6px; color: #0b4b46; }
+
+    .wa-card label {
+      float: left;
+      margin-top: 25px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .wa-card input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    .wa-card .hint { font-size: 13px; color: #777; text-align: left; margin-top: 5px; }
+
+    .wa-card button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background: #0b8e79;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .wa-card button:hover { background: #09715f; }
+
+    #response {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #0b4b46;
+      white-space: pre-wrap;
+      text-align: left;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/* =======================================================
+   UPDATED FOR VERCEL ✔
+======================================================= */
+function sendMessage() {
+  const mobile = document.getElementById("mobile").value.trim();
+  const responseBox = document.getElementById("response");
+  responseBox.innerHTML = "Sending message...";
+
+  if (!mobile) {
+    responseBox.innerHTML = "❌ Please enter mobile number.";
+    return;
+  }
+
+  fetch("/api/send-message", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ mobile })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        responseBox.innerHTML = "❌ Error: " + data.error;
+      } else {
+        responseBox.innerHTML = "✔ Sent Successfully!";
+      }
+    })
+    .catch(err => {
+      responseBox.innerHTML = "❌ Error: " + err.message;
+    });
+}
+</script>
+
+</body>
+</html>
